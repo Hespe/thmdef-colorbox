@@ -1,0 +1,26 @@
+*.hd
+
+# LaTeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+
+# Glossary files
+*.glg
+*.glo
+*.gls
+
+# Indexing
+*.idx
+*.ilg
+*.ind
+*.ist
+
+# Generated package files
+*.dvi
+*.pdf
+*.sty
