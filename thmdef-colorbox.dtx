@@ -1,0 +1,318 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2025 by Christian Hespe
+% --------------------------------------------------------------------
+%
+% This file may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, version 1.3c.
+% The license can be obtained from
+% http://www.latex-project.org/lppl/lppl-1.3c.txt
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{thmdef-colorbox.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{thmdef-colorbox}
+%<*package>
+  [2025/09/06 v1.0 Colorbox attribute for thmtools]
+%</package>
+%
+%<*driver>
+\documentclass{ltxdoc}
+
+\usepackage{amsthm}
+\usepackage{thmtools}
+
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  breakatwhitespace,
+  gobble=4
+}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+
+\declaretheorem[colorbox]{theorem}
+\declaretheorem[colorbox={sharp corners=all, colframe=blue}]{lemma}
+\declaretheorem[colorbox={%
+  enhanced jigsaw,
+  colbacktitle=red,
+  attach boxed title to bottom right
+}]{corollary}
+\declaretheoremstyle[
+  notebraces="",
+  headfont=\normalfont\scshape,
+  notefont=\normalfont\itshape,
+  bodyfont=\normalfont\ttfamily,
+  colorbox={}
+]{proposition}
+\declaretheorem[style=proposition]{proposition}
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+
+\NewDocElement[idxtype={}, idxgroup={}]{Key}{key}
+\setcounter{IndexColumns}{2}
+
+\begin{document}
+  \DocInput{thmdef-colorbox.dtx}
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v1.0}{2025/09/06}{Initial version}
+%
+% \GetFileInfo{thmdef-colorbox.dtx}
+%
+% \DoNotIndex{\RequirePackage}
+% \DoNotIndex{\begin, \def, \end, \sbox}
+% \DoNotIndex{\makeatletter, \makeatother}
+% \DoNotIndex{\ignorespaces, \normalfont}
+% \DoNotIndex{\thmt@envname, \thmt@trytwice}
+%
+% \title{The \textsf{thmdef-colorbox} package\thanks{This document
+% corresponds to \textsf{thmdef-colorbox}~\fileversion, dated
+% \filedate.}}
+% \author{Christian Hespe}
+%
+% \maketitle
+%
+% \section{Introduction}
+% The \textsf{thmdef-colorbox} package extends \textsf{thmtools} with
+% the |colorbox| key, which wraps the theorem environment inside
+% user-stylable boxes.
+% Underneath, the boxes are drawn using \textsf{tcolorbox}, giving
+% full access to \textsf{pgfkeys}-based styling.
+% Compared to manually wrapping theorems inside boxes, this package
+% extracts the theorem title for use within the |title| property of
+% |tcolorbox|, enabling styles that separate title and body.
+% It is therefore similar in scope to the \textsf{theorem} library of
+% \textsf{tcolorbox} but remains compatible with \textsf{thmtools} and
+% its machinery.
+%
+% \section{Usage}
+% For basic usage, only the two packages%
+% \begin{lstlisting}
+%   \usepackage{amsthm}
+%   \usepackage{thmtools}
+% \end{lstlisting}
+% have to be included.
+% The \textsf{thmdef-colorbox} package itself will be loaded via the
+% \textsf{thmtools} extension mechanism automatically once the
+% |colorbox| key is used.
+% In the document \emph{preamble}, declare a boxed theorem type using
+% \lstinputlisting[linerange={41}]{thmdef-colorbox.dtx}
+% with the |colorbox| key without further arguments.
+% The main document body can then contain one or more theorems that
+% get drawn as in the following snippet:\\
+%
+% \noindent\hfill
+% \begin{minipage}{0.5\linewidth}
+%   \begin{lstlisting}[breaklines, gobble=6]
+%     \begin{theorem}[Euclid]
+%       For every prime $p$, there is a larger prime $p'>p$.
+%     \end{theorem}
+%   \end{lstlisting}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\linewidth}
+%   \begin{theorem}[Euclid]
+%     For every prime $p$, there is a larger prime $p'>p$.
+%   \end{theorem}
+% \end{minipage}
+% \hfill
+%
+% \subsection{Styling the theorem box}
+% Since \textsf{tcolorbox} is used underneath, its capabilities can be
+% used to achieve the different styles for theorems.
+% The desired options can be passed directly to the |colorbox| key
+% during declaration of the theorem in the document preamble:
+% \lstinputlisting[linerange={42}]{thmdef-colorbox.dtx}
+% In the main document, usage is otherwise identical.
+% Note that subtitles using |\tcbsubtitle| and splitting the
+% surrounding box with |\tcblower| are supported.\\
+%
+% \noindent\hfill
+% \begin{minipage}{0.5\linewidth}
+%   \begin{lstlisting}[breaklines, gobble=6]
+%     \begin{lemma}
+%       For every prime $p$,
+%       \tcblower
+%       there is a larger prime $p'>p$.
+%     \end{lemma}
+%   \end{lstlisting}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\linewidth}
+%   \begin{lemma}
+%     For every prime $p$,
+%     \tcblower
+%     there is a larger prime $p'>p$.
+%   \end{lemma}
+% \end{minipage}
+% \hfill\\
+%
+% For some more advanced options of \textsf{tcolorbox}, it might be
+% required to load additional libaries before setting the keys, e.g.
+% for creating |breakable| environments or fancy themes.
+% As an example, consider adding the title as a floating box at the
+% bottom of the main theorem body.
+% Since this requires the |enhanced jigsaw| theme, we first load the
+% \textsf{skins} library of \textsf{tcolorbox} before declaring the
+% theorem in the usual way:
+% \lstinputlisting[linerange={39, 43-47}]{thmdef-colorbox.dtx}
+% Note that manually loading the \textsf{tcolorbox} package might be
+% necessary in this case to ensure that the |\tcbuselibrary| macro is
+% available.\\
+%
+% \noindent\hfill
+% \begin{minipage}{0.5\linewidth}
+%   \begin{lstlisting}[breaklines, gobble=6]
+%     \begin{corollary}
+%       For every prime $p$, there is a larger prime $p'>p$.
+%     \end{corollary}
+%   \end{lstlisting}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\linewidth}
+%   \begin{corollary}
+%     For every prime $p$, there is a larger prime $p'>p$.
+%   \end{corollary}
+% \end{minipage}
+% \hfill
+%
+% \subsection{Styling theorem title and contents}
+% Compared to the box surrounding the theorem, styling the theorem
+% itself is best left to \textsf{thmtools} instead of
+% \textsf{tcolorbox}.
+% The reason is that \textsf{thmtools} has access to the individual
+% componenents of the theorem (e.g. name and note), while
+% \textsf{tcolorbox} is getting the full title passed at once.
+% For demonstration, consider the following style and theorem
+% declaration:
+% \lstinputlisting[linerange={48-55}]{thmdef-colorbox.dtx}
+% Using options of \textsf{thmtools}, we can change the delimiters
+% around the optional theorem note and adjust the fonts of head, note,
+% and body separatly.\\
+%
+% \noindent\hfill
+% \begin{minipage}{0.5\linewidth}
+%   \begin{lstlisting}[breaklines, gobble=6]
+%     \begin{proposition}[Euclid]
+%       For every prime $p$, there is a larger prime $p'>p$.
+%     \end{proposition}
+%   \end{lstlisting}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\linewidth}
+%   \begin{proposition}[Euclid]
+%     For every prime $p$, there is a larger prime $p'>p$.
+%   \end{proposition}
+% \end{minipage}
+% \hfill
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+% This package is implemented by taking advantage of the
+% \textsf{thmtools} extension mechanism and works by patching an
+% internal macro of \textsf{amsthm}.
+%    \begin{macrocode}
+\RequirePackage{amsthm}
+\RequirePackage{thm-patch}
+%    \end{macrocode}
+% For patching, we rely on the |xapptocmd| macro of
+% \textsf{regexpatch}, and the box drawing codes comes from the
+% package \textsf{tcolorbox}.
+%    \begin{macrocode}
+\RequirePackage{regexpatch}
+\RequirePackage{tcolorbox}
+%    \end{macrocode}
+% \begin{key}{colorbox}
+% Starting with the main implementation, we register the |colorbox|
+% key with \textsf{thmtools}, defaulting to an otherwise empty style.
+%    \begin{macrocode}
+\define@key{thmdef}{colorbox}[{}]{
+  \thmt@trytwice{}{
+%    \end{macrocode}
+%
+% \paragraph{Theorem head patch}
+% The first change has to be applied before the actual theorem
+% environment has been opened, otherwise the original theorem head
+% has already been printed and thrown away.
+% On the other hand, the title is only evaluated while opening the
+% environment, therefore wrapping the theorem inside |tcolorbox| has
+% to be deferred.
+%
+% \begin{macro}{\thmdef@colorbox@title}
+%   To properly print the theorem header in the |tcolorbox|,
+%   |\deferred@thm@head| has to be patched, first storing the
+%   title in the |\thmdef@colorbox@title| macro and then throwing
+%   away the title definition of the original macro.
+%    \begin{macrocode}
+    \addtotheorempreheadhook[\thmt@envname]{%
+      \makeatletter
+      \xapptocmd{\deferred@thm@head}{%
+        \def\thmdef@colorbox@title{\normalfont##1}%
+        \sbox\@labels{}%
+        \ignorespaces
+      }{}{\def\thmdef@colorbox@title{Patching failed}}%
+      \makeatother
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \paragraph{tcolorbox wrapper}
+% When the theorem environment has been opened, the theorem title is
+% computed by \textsf{amsthm} and stored in
+% \DescribeMacro{\thmdef@colorbox@title}|\thmdef@colorbox@title|
+% by the patched macro above.
+% We can therefore create the inner |tcolorbox| wrapper and assign the
+% proper title.
+% Finally, all options passed to the |colorbox| key are passed to the
+% |tcolorbox| wrapper by |#1|.
+%    \begin{macrocode}
+    \addtotheorempostheadhook[\thmt@envname]{%
+      \begin{tcolorbox}[title=\thmdef@colorbox@title, #1]%
+    }
+%    \end{macrocode}
+%
+% \paragraph{Closing the wrapper}
+% Finally, the inner |tcolorbox| wrapper has to be closed before
+% the outer theorem environment
+%    \begin{macrocode}
+    \addtotheoremprefoothook[\thmt@envname]{\end{tcolorbox}}
+  }
+}
+%    \end{macrocode}
+% which completes the definition of the |colorbox| key.
+% \end{key}
+%
+% \Finale
